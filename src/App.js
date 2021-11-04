@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 
 import DragNDrop from './components/DragNDrop';
@@ -8,6 +9,7 @@ const data = [
   {title: 'Complete', items: ['6', '7']},
   {title: 'On Hold', items: []}
 ]
+
 
 function App() {
   return (

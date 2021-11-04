@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 
 function DragNDrop ({data}) {
     const [list, setList] = useState(data);
@@ -7,11 +7,22 @@ function DragNDrop ({data}) {
     const dragItem = useRef();
     const dragNode = useRef();
 
+    
+    useEffect(() => {
+        setList(JSON.parse(localStorage.getItem('state')));
+      }, []);
+    
+      useEffect(() => {
+        localStorage.setItem('state', JSON.stringify(list));
+      }, [list]);
+
+
+
     const handleDragStart = (e, params) => {
         console.log('drag starting..', params)
         dragItem.current = params;
         dragNode.current = e.target;
-        dragNode.current. addEventListener('dragend', handleDragEnd)
+        dragNode.current.addEventListener('dragend', handleDragEnd)
         setTimeout(() => {
             setDragging(true)
         },0)
@@ -34,7 +45,7 @@ function DragNDrop ({data}) {
     const handleDragEnd = () => {
         console.log('Ending drag..')
         setDragging(false)
-        dragNode.current. removeEventListener('dragend', handleDragEnd)
+        dragNode.current.removeEventListener('dragend', handleDragEnd)
         dragItem.current = null;
         dragNode.current = null;
 
